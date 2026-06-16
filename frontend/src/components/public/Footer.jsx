@@ -168,7 +168,7 @@ export default function Footer() {
           padding: 15px;
           font-size: 12px;
           color: #9ca3af;
-          
+          margin-left: 20px;
         }
 
         @media (max-width: 900px) {
