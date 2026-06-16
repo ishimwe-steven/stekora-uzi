@@ -59,6 +59,7 @@ export default function Footer() {
               <li>Project Support</li>
               <li>Service Level & Maintenance</li>
               <li>Contact Support: support@stekoratech.com</li>
+              <li>IoT projects support</li>
             </ul>
           </div>
         </div>
