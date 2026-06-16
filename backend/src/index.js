@@ -1,6 +1,7 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
+import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -36,6 +37,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static(uploadsDir));
 app.use("/api/uploads", express.static(uploadsDir));
 
+// Debug route for checking uploads path
+app.get("/api/debug/uploads", (_req, res) => {
+  res.json({
+    uploadsDir,
+    uploadsDirExists: fs.existsSync(uploadsDir),
+    productsDir: path.join(uploadsDir, "products"),
+    productsDirExists: fs.existsSync(path.join(uploadsDir, "products")),
+  });
+});
+
 app.get("/api/health", (_req, res) => {
   res.json({ ok: true, app: "Stekora Tech Academy API" });
 });
@@ -54,5 +65,5 @@ app.use((req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Stekora Tech API running on http://localhost:${port}`);
+  console.log(`Stekora Tech API running on port ${port}`);
 });
