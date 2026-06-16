@@ -3,11 +3,6 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/cresijjl/stekoratech.com/
     - export REPOPATH=/home/cresijjl/repositories/stekora-uzi/
-
-    - cd $REPOPATH/frontend
-    - npm install
-    - npm run build
-
     - /bin/rm -rf $DEPLOYPATH/assets
     - /bin/rm -f $DEPLOYPATH/index.html
     - /bin/cp -R $REPOPATH/frontend/dist/* $DEPLOYPATH
