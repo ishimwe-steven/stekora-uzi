@@ -45,7 +45,7 @@ export default function Footer() {
           <div className="footer-col">
             <h3>Contact Us</h3>
             <ul>
-              <li><FontAwesomeIcon icon={faPhone} /> Phone: <span>+250 780 959 065</span></li>
+              <li><FontAwesomeIcon icon={faPhone} /> Phone: <span>+250 799579034</span></li>
               <li><FontAwesomeIcon icon={faEnvelope} /> Email: <span>stekoratech@gmail.com</span></li>
               <li><FontAwesomeIcon icon={faLocationDot} /> Location: <span>Musanze, Rwanda</span></li>
               <li className="social-text">Social: <span>LinkedIn, GitHub, Instagram</span></li>
@@ -59,7 +59,6 @@ export default function Footer() {
               <li>Project Support</li>
               <li>Service Level & Maintenance</li>
               <li>Contact Support: support@stekoratech.com</li>
-              <li>IoT projects support</li>
             </ul>
           </div>
         </div>

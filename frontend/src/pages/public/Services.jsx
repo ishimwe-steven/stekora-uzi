@@ -8,11 +8,14 @@ import {
   faPenNib,
   faVideo
 } from "@fortawesome/free-solid-svg-icons";
-import fullstackImg from "../../assets/image/fullstack.jpg";
+import fullstackImg from "../../assets/image/web.jpg";
 import backendImg from "../../assets/image/backend.png";
-import iotImg from "../../assets/image/iot.jpg";
+import iotImg from "../../assets/image/internet_of_things.jpg";
 import heroImg from "../../assets/image/hero.jpg";
-import photoshopImg from "../../assets/image/photoshop.jpg";
+import photoshopImg from "../../assets/image/Photoshop.jpg";
+import integrationImg from "../../assets/image/automation.jpg";
+import cctvImg from "../../assets/image/camera.jpg";
+import networkImg from "../../assets/image/network.jpg";
 
 const services = [
   {
@@ -35,7 +38,7 @@ const services = [
     icon: faGears,
     title: "Automation & Integration",
     desc: "Connect systems, automate workflows, and build custom internal tools for your team.",
-    image: backendImg,
+    image: integrationImg,
     details:
       "We automate repetitive business tasks and connect separate systems so information moves faster with fewer mistakes. This can include custom forms, reports, notifications, data sync, stock or client tracking tools, and integrations between websites, databases, spreadsheets, and third-party platforms."
   },
@@ -43,7 +46,7 @@ const services = [
     icon: faVideo,
     title: "CCTV Installation & Smart Surveillance",
     desc: "Professional camera installation, monitoring setup, access control, and smart security systems for homes and businesses.",
-    image: heroImg,
+    image: cctvImg,
     details:
       "We plan and install CCTV systems for homes, shops, offices, and business sites. Our service can include camera placement, cabling, DVR/NVR setup, mobile viewing, recording configuration, access control support, troubleshooting, and guidance on keeping your surveillance system reliable."
   },
@@ -51,7 +54,7 @@ const services = [
     icon: faNetworkWired,
     title: "Networking, Computer Maintenance & IT Support",
     desc: "Network setup, troubleshooting, computer repairs, software support, upgrades, and reliable ongoing technical assistance.",
-    image: backendImg,
+    image: networkImg,
     details:
       "We set up and maintain office and home networks, troubleshoot internet and Wi-Fi issues, repair and optimize computers, install software, upgrade systems, remove common technical blockers, and provide ongoing support so your devices and team can keep working smoothly."
   },

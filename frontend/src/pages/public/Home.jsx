@@ -3,20 +3,47 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { getProducts } from "../../services/productApi";
 import { resolveImageUrl } from "../../utils/resolveImageUrl";
-import bannerOne from "../../assets/banners/bunner1.png";
-import bannerTwo from "../../assets/banners/banner3.png";
+
+import bannerOne from "../../assets/banners/mukunzi.png";
+import bannerTwo from "../../assets/banners/uzii.png";
+import bannerThree from "../../assets/banners/mukunzi.png";
+
+  import mobileBannerOne from "../../assets/banners/freight.png";
+  import mobileBannerTwo from "../../assets/banners/camera.png";
+  import mobileBannerThree from "../../assets/banners/freight.png";
+
 import heroImage from "../../assets/image/hero.jpg";
-import fullstackImage from "../../assets/image/fullstack.jpg";
 import iotImage from "../../assets/image/iot.jpg";
 
-const banners = [bannerOne, bannerTwo];
+const desktopBanners = [bannerOne, bannerTwo];
 
-const PRODUCT_IMAGES = [iotImage, fullstackImage, heroImage];
+/* 
+  Ubu ndashyizemo same banners kugira ngo code ikore.
+  Nuba umaze gukora mobile banners, uzasimbuza izi.
+*/
+const mobileBanners = [mobileBannerOne, mobileBannerTwo];
+
+const PRODUCT_IMAGES = [iotImage, heroImage];
 
 export default function Home({ goTo }) {
   const [current, setCurrent] = useState(0);
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" ? window.innerWidth <= 600 : false
+  );
   const [featuredItems, setFeaturedItems] = useState([]);
   const [productsLoading, setProductsLoading] = useState(true);
+
+  const banners = isMobile ? mobileBanners : desktopBanners;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 600);
+      setCurrent(0);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -24,13 +51,16 @@ export default function Home({ goTo }) {
     }, 4000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [banners.length]);
 
   useEffect(() => {
     async function loadFeaturedProducts() {
       try {
         const response = await getProducts();
-        const productList = Array.isArray(response) ? response : response.products || [];
+        const productList = Array.isArray(response)
+          ? response
+          : response.products || [];
+
         setFeaturedItems(productList.slice(0, 3));
       } catch (error) {
         console.error(error);
@@ -44,11 +74,11 @@ export default function Home({ goTo }) {
   }, []);
 
   const previousBanner = () => {
-    setCurrent((current - 1 + banners.length) % banners.length);
+    setCurrent((index) => (index - 1 + banners.length) % banners.length);
   };
 
   const nextBanner = () => {
-    setCurrent((current + 1) % banners.length);
+    setCurrent((index) => (index + 1) % banners.length);
   };
 
   return (
@@ -67,26 +97,36 @@ export default function Home({ goTo }) {
           background: var(--palegray);
           color: var(--richblue);
           min-height: 100vh;
+          overflow-x: hidden;
         }
 
         .ad-slider {
           position: relative;
-          width: 100vw;
-          height: 140px;
+          width: 100%;
+          height: 150px;
           overflow: hidden;
-          margin-left: calc(50% - 50vw);
           background: #dbeafe;
         }
 
         .ad-slide {
+          position: absolute;
+          inset: 0;
           width: 100%;
           height: 100%;
-          object-fit: cover;
-          display: none;
+          opacity: 0;
+          z-index: 1;
         }
 
         .ad-slide.active {
+          opacity: 1;
+          z-index: 2;
+        }
+
+        .ad-slide img {
+          width: 100%;
+          height: 100%;
           display: block;
+          object-fit: fill;
         }
 
         .ad-arrow {
@@ -118,14 +158,17 @@ export default function Home({ goTo }) {
           transform: translateX(-50%);
           display: flex;
           gap: 0.4rem;
+          z-index: 6;
         }
 
         .ad-dot {
           width: 7px;
           height: 7px;
           border-radius: 50%;
+          border: none;
           background: rgba(255, 255, 255, 0.5);
           cursor: pointer;
+          padding: 0;
         }
 
         .ad-dot.active {
@@ -178,14 +221,13 @@ export default function Home({ goTo }) {
           font-weight: 500;
           padding: 0.75rem 2rem;
           border-radius: 0.5rem;
-          text-decoration: none;
+          border: none;
+          cursor: pointer;
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
-          transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
         }
 
         .home-contact-btn:hover {
           background: var(--richblue);
-          box-shadow: 0 10px 15px rgba(0, 0, 0, 0.14);
           transform: translateY(-1px);
         }
 
@@ -234,10 +276,6 @@ export default function Home({ goTo }) {
           max-width: 400px;
           cursor: pointer;
           background: #fff;
-        }
-
-        .search-input:focus {
-          border-color: var(--richblue);
         }
 
         .products-grid {
@@ -316,18 +354,20 @@ export default function Home({ goTo }) {
         .home-product-actions button {
           background: #e7f5f3;
           color: #0f766e;
+          border: none;
           border-radius: 8px;
           padding: 10px 12px;
           font-weight: 700;
+          cursor: pointer;
         }
 
-        .home-product-actions .cart-icon-btn {
+        .cart-icon-btn {
           width: 46px;
           height: 46px;
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          padding: 0;
+          padding: 0 !important;
           font-size: 1rem;
         }
 
@@ -343,8 +383,7 @@ export default function Home({ goTo }) {
 
         @media (min-width: 640px) {
           .ad-slider {
-            height: 150px;
-            width: 100%;
+            height: 140px;
           }
 
           .products-grid {
@@ -354,8 +393,7 @@ export default function Home({ goTo }) {
 
         @media (min-width: 768px) {
           .ad-slider {
-            height: 110px;
-            width: 100%;
+            height: 130px;
           }
 
           .hero-section {
@@ -368,28 +406,71 @@ export default function Home({ goTo }) {
         }
 
         @media (min-width: 1024px) {
+          .ad-slider {
+            height: 150px;
+          }
+
           .products-grid {
             grid-template-columns: repeat(3, 1fr);
           }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 600px) {
+          .ad-slider {
+            height: 100px;
+            background: var(--palegray);
+            margin-bottom: -3.5rem;
+          }               
+          .ad-slide img {
+           background-size: 100% 100%;
+            background-position: 100% top;
+            width: 100%;
+            margin-top: -12px;
+            object-fit: contain;
+          }
+
+          .ad-arrow {
+            font-size: 1rem;
+            padding: 0.15rem 0.35rem;
+             margin-top: -0.6rem;
+          }
+
+          .ad-arrow.left {
+            left: 0.5rem;
+           
+          }
+
+          .ad-arrow.right {
+            right: 0.5rem;
+          }
+
+          .ad-dots {
+            bottom: 0.45rem;
+          }
+
+          .ad-dot {
+            width: 6px;
+            height: 6px;
+            margin-top: -1.8rem;
+          }
+
           .home-container {
-            padding-top: 1.5rem;
+            padding: 2rem 1rem;
           }
 
           .hero-section {
             text-align: center;
-            padding: 0 25px;
-            margin-top: -0.5rem;
+            padding: 0 1rem;
+            gap: 1.2rem;
           }
 
           .hero-pretitle {
             font-size: 1.35rem;
+            letter-spacing: 5px;
           }
 
           .hero-title {
-            font-size: 1.6rem;
+            font-size: 1.7rem;
           }
 
           .hero-description {
@@ -400,23 +481,8 @@ export default function Home({ goTo }) {
             display: none;
           }
 
-          .ad-slider {
-            height: 110px;
-            width: 100%;
-          }
-
-          .ad-arrow {
-            font-size: 1.1rem;
-            padding: 0.2rem 0.4rem;
-          }
-
-          .ad-dots {
-            bottom: 0.4rem;
-          }
-
-          .ad-dot {
-            width: 6px;
-            height: 6px;
+          .home-contact-btn {
+            padding: 0.7rem 1.8rem;
           }
 
           .featured-header {
@@ -428,22 +494,60 @@ export default function Home({ goTo }) {
             max-width: 100%;
           }
         }
+
+        @media (max-width: 400px) {
+          .ad-slider {
+            height: 100px;
+            background: var(--palegray);
+            margin-bottom: -3.5rem;
+          } 
+             .ad-slide img {
+           background-size: 100% 100%;
+            background-position: 100% top;
+            width: 100%;
+            margin-top: -20px;
+            object-fit: contain;
+          }
+            .ad-arrow {
+            font-size: 1rem;
+            padding: 0.15rem 0.35rem;
+             margin-top: -1.3rem;
+          }
+
+          .ad-dot {
+            width: 6px;
+            height: 6px;
+            margin-top: -2.8rem;
+          }
+
+
+          .hero-title {
+            font-size: 1.55rem;
+          }
+
+          .hero-pretitle {
+            font-size: 1.2rem;
+          }
+                          
+          
+        }
       `}</style>
 
       <div className="home-page">
         <div className="ad-slider">
           {banners.map((img, index) => (
-            <img
-              key={img}
-              src={img}
+            <div
+              key={`${img}-${index}`}
               className={`ad-slide ${index === current ? "active" : ""}`}
-              alt="Advertisement"
-            />
+            >
+              <img src={img} alt={`Advertisement banner ${index + 1}`} />
+            </div>
           ))}
 
           <button className="ad-arrow left" onClick={previousBanner} aria-label="Previous banner">
             ‹
           </button>
+
           <button className="ad-arrow right" onClick={nextBanner} aria-label="Next banner">
             ›
           </button>
@@ -451,7 +555,7 @@ export default function Home({ goTo }) {
           <div className="ad-dots">
             {banners.map((img, index) => (
               <button
-                key={img}
+                key={`${img}-dot-${index}`}
                 className={`ad-dot ${index === current ? "active" : ""}`}
                 onClick={() => setCurrent(index)}
                 aria-label={`Go to banner ${index + 1}`}
@@ -470,9 +574,9 @@ export default function Home({ goTo }) {
               </h1>
 
               <p className="hero-description">
-                We are an IT services studio delivering web applications, embedded
-                systems and automation. From concept to deployment, we help you
-                design, build and manage reliable digital products.
+                We are an IT services studio delivering web applications, embedded systems and
+                automation. From concept to deployment, we help you design, build and manage
+                reliable digital products.
               </p>
 
               <button className="home-contact-btn" onClick={() => goTo("/contact")}>
@@ -508,21 +612,33 @@ export default function Home({ goTo }) {
                 featuredItems.map((item, index) => {
                   const name = item.name || item.title || "Product";
                   const price = item.price ? `R${item.price}` : "Contact us";
-                  const image = item.image || (item.image_url ? resolveImageUrl(item.image_url) : "") || PRODUCT_IMAGES[index % PRODUCT_IMAGES.length];
+                  const image =
+                    item.image ||
+                    (item.image_url ? resolveImageUrl(item.image_url) : "") ||
+                    PRODUCT_IMAGES[index % PRODUCT_IMAGES.length];
 
                   return (
                     <div className="home-product-card" key={item.id || name}>
                       <img src={image} alt={name} />
+
                       <div className="home-product-body">
-                        <span className="home-product-tag">{item.category || item.tag || "Product"}</span>
+                        <span className="home-product-tag">
+                          {item.category || item.tag || "Product"}
+                        </span>
+
                         <h3 className="home-product-title">{name}</h3>
+
                         <p className="home-product-description">
                           {item.description || "Quality Stekora Tech product or service package."}
                         </p>
+
                         <p className="home-product-meta">Rating {item.rating || "4.8"}</p>
+
                         <strong className="home-product-price">{price}</strong>
+
                         <div className="home-product-actions">
                           <button>Details</button>
+
                           <button className="cart-icon-btn" aria-label={`Add ${name} to cart`}>
                             <FontAwesomeIcon icon={faCartShopping} />
                           </button>

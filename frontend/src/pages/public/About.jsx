@@ -1,3 +1,47 @@
+import stevoPhoto from "../../assets/image/stevo.png";
+import codePhoto from "../../assets/image/code.jpeg";
+import crestlinePhoto from "../../assets/image/crestline.png";
+
+const teamMembers = [
+  {
+    name: "Steven",
+    role: "CEO & Founder",
+    bio: "Leads overall vision, projects and partnerships.",
+    photo: "",
+  },
+  {
+    name: "Tabitha",
+    role: "Chief Technology Officer",
+    bio: "Oversees technology choices and engineering quality.",
+    photo: "",
+  },
+  {
+    name: "Stekora Team",
+    role: "Developers & Mentors",
+    bio: "Collaborate on client work and student projects.",
+    photo: "",
+  },
+];
+
+const partners = [
+  {
+    name: "Code Rwanda Tech",
+    logo: codePhoto,
+    website: "https://coderwanda.net.rw/",
+  },
+  {
+    name: "Crestline Journeys",
+    logo: crestlinePhoto,
+    website: "https://www.crestjourneys.com/",
+  },
+  {
+    name: "Nadev Solution",
+    icon: "👤",
+    website: "https://stekoratech.com/#/about",
+  },
+  
+];
+
 export default function About() {
   return (
     <>
@@ -86,15 +130,24 @@ export default function About() {
         }
 
         .team-avatar {
-          width: 70px;
-          height: 70px;
+          width: 86px;
+          height: 86px;
           border-radius: 50%;
           border: 3px solid #22c55e;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 2rem;
+          font-size: 2.2rem;
           color: #9ca3af;
+          background: #f8fafc;
+          overflow: hidden;
+        }
+
+        .team-avatar img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
         }
 
         .team-name {
@@ -131,16 +184,67 @@ export default function About() {
           display: flex;
           flex-wrap: wrap;
           justify-content: center;
-          gap: 2.5rem;
+          gap: 1.5rem;
           align-items: center;
-          font-size: 1.1rem;
+        }
+
+        .partner-card {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.7rem;
+          background: #ffffff;
+          border: 1px solid #e5e7eb;
+          border-radius: 999px;
+          padding: 0.75rem 1.2rem;
+          box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
+          text-decoration: none;
+          cursor: pointer;
+          transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+
+        .partner-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+          border-color: var(--richblue);
+        }
+
+        .partner-icon {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          background: #e7f5f3;
+          color: #0f766e;
+          font-size: 1.2rem;
+          overflow: hidden;
+          flex-shrink: 0;
+        }
+
+        .partner-icon img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+
+        .partner-name {
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          font-size: 0.85rem;
+          font-weight: 700;
           color: #4b5563;
         }
 
-        .partners-logos span {
-          text-transform: uppercase;
-          letter-spacing: 0.12em;
-          font-weight: 600;
+        .external-icon {
+          font-size: 0.85rem;
+          color: #9ca3af;
+        }
+
+        .partner-card:hover .partner-name,
+        .partner-card:hover .external-icon {
+          color: var(--richblue);
         }
 
         @media (min-width: 768px) {
@@ -157,6 +261,11 @@ export default function About() {
           .team-section {
             padding: 2rem 1.2rem;
           }
+
+          .partner-card {
+            width: 100%;
+            justify-content: center;
+          }
         }
       `}</style>
 
@@ -170,6 +279,7 @@ export default function About() {
                 modern digital solutions for both local and international needs.
               </p>
             </div>
+
             <div className="about-box">
               <h3>Our Mission</h3>
               <p>
@@ -178,6 +288,7 @@ export default function About() {
                 practical innovation and mentorship.
               </p>
             </div>
+
             <div className="about-box">
               <h3>Strategic Driving Lines</h3>
               <p>
@@ -190,39 +301,55 @@ export default function About() {
 
           <section className="team-section">
             <h2 className="team-title">Our Awesome Team Of Engineers &amp; Staff</h2>
+
             <p className="team-sub">
               Stekora Tech works with skilled professionals and partners to
               deliver software and electronics solutions in Rwanda and beyond.
             </p>
 
             <div className="team-grid">
-              <div className="team-card">
-                <div className="team-avatar">👤</div>
-                <div className="team-name">Steven</div>
-                <div className="team-role">CEO &amp; Founder</div>
-                <div className="team-bio">Leads overall vision, projects and partnerships.</div>
-              </div>
+              {teamMembers.map((member) => (
+                <div className="team-card" key={member.name}>
+                  <div className="team-avatar">
+                    {member.photo ? (
+                      <img src={member.photo} alt={member.name} />
+                    ) : (
+                      <span>👤</span>
+                    )}
+                  </div>
 
-              <div className="team-card">
-                <div className="team-avatar">👤</div>
-                <div className="team-name">Tabitha</div>
-                <div className="team-role">Chief Technology Officer</div>
-                <div className="team-bio">Oversees technology choices and engineering quality.</div>
-              </div>
-
-              <div className="team-card">
-                <div className="team-avatar">👤</div>
-                <div className="team-name">Stekora Team</div>
-                <div className="team-role">Developers &amp; Mentors</div>
-                <div className="team-bio">Collaborate on client work and student projects.</div>
-              </div>
+                  <div className="team-name">{member.name}</div>
+                  <div className="team-role">{member.role}</div>
+                  <div className="team-bio">{member.bio}</div>
+                </div>
+              ))}
             </div>
 
             <div className="partners-strip">
               <div className="partners-label">Our Partners</div>
+
               <div className="partners-logos">
-                <span>Nadev Solution</span>
-                <span>Code Rwanda Tech</span>
+                {partners.map((partner) => (
+                  <a
+                    className="partner-card"
+                    key={partner.name}
+                    href={partner.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Visit ${partner.name} website`}
+                  >
+                    <div className="partner-icon">
+                      {partner.logo ? (
+                        <img src={partner.logo} alt={partner.name} />
+                      ) : (
+                        <span>{partner.icon}</span>
+                      )}
+                    </div>
+
+                    <span className="partner-name">{partner.name}</span>
+                    <span className="external-icon">↗</span>
+                  </a>
+                ))}
               </div>
             </div>
           </section>
