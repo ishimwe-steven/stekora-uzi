@@ -4,7 +4,7 @@ import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 
 export default function FloatingActions({ goTo }) {
   const openWhatsApp = () => {
-    window.open("https://wa.me/250799579035?text=Hello%20Stekora%20Tech", "_blank");
+    window.open("https://wa.me/250799579034?text=Hello%20Stekora%20Tech", "_blank");
   };
 
   return (
