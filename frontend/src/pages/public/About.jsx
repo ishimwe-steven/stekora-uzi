@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+
 import stevoPhoto from "../../assets/image/stevo.png";
 import codePhoto from "../../assets/image/code.jpeg";
 import crestlinePhoto from "../../assets/image/crestline.png";
@@ -39,7 +42,6 @@ const partners = [
     icon: "👤",
     website: "https://stekoratech.com/#/about",
   },
-  
 ];
 
 export default function About() {
@@ -238,13 +240,18 @@ export default function About() {
         }
 
         .external-icon {
-          font-size: 0.85rem;
+          font-size: 0.8rem;
           color: #9ca3af;
+          transition: transform 0.25s ease, color 0.25s ease;
         }
 
         .partner-card:hover .partner-name,
         .partner-card:hover .external-icon {
           color: var(--richblue);
+        }
+
+        .partner-card:hover .external-icon {
+          transform: translate(2px, -2px);
         }
 
         @media (min-width: 768px) {
@@ -347,7 +354,11 @@ export default function About() {
                     </div>
 
                     <span className="partner-name">{partner.name}</span>
-                    <span className="external-icon">↗</span>
+
+                    <FontAwesomeIcon
+                      icon={faArrowUpRightFromSquare}
+                      className="external-icon"
+                    />
                   </a>
                 ))}
               </div>
