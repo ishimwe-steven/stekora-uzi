@@ -107,6 +107,9 @@ export default function Courses() {
         :root {
           --blue: #3b82f6;
           --richblue: #003366;
+          --palegray: #f5f5f5;
+          --lightgray: #9ca3af;
+        
         }
 
         .courses-page {
@@ -147,7 +150,7 @@ export default function Courses() {
         }
 
         .course-tab.active {
-          background: #003366;
+          background: var(--blue);
           color: #ffffff;
         }
 
@@ -183,7 +186,7 @@ export default function Courses() {
         }
 
         .course-category {
-          color: #22d3ee;
+          color: var(--blue);
           font-size: 0.82rem;
           font-weight: 800;
           text-transform: uppercase;
@@ -270,7 +273,7 @@ export default function Courses() {
         }
 
         .course-modal-kicker {
-          color: #22d3ee;
+          color:var(--blue);
           font-size: 0.75rem;
           font-weight: 800;
           text-transform: uppercase;

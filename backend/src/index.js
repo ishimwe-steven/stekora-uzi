@@ -9,6 +9,7 @@ import adminRoutes from "./routes/adminPanel.js";
 import authRoutes from "./routes/auth.js";
 import courseRoutes from "./routes/courses.js";
 import finalExamRoutes from "./routes/finalExam.js";
+import paymentSettingsRoutes from "./routes/paymentSettings.js";
 import productRoutes from "./routes/products.js";
 import studentRoutes from "./routes/students.js";
 
@@ -48,7 +49,10 @@ app.get("/api/debug/uploads", (_req, res) => {
 });
 
 app.get("/api/health", (_req, res) => {
-  res.json({ ok: true, app: "Stekora Tech Academy API" });
+  res.json({
+    ok: true,
+    app: "Stekora Tech API",
+  });
 });
 
 app.use("/api/auth", authRoutes);
@@ -57,6 +61,9 @@ app.use("/api/courses", courseRoutes);
 app.use("/api/final-exam", finalExamRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/admin", adminRoutes);
+
+// Public manual payment settings
+app.use("/api/payment-settings", paymentSettingsRoutes);
 
 app.use((req, res) => {
   res.status(404).json({

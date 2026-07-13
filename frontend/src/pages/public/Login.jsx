@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock, faPhone, faUser } from "@fortawesome/free-solid-svg-icons";
 import { adminLogin, studentLogin } from "../../services/authApi";
 import { registerStudent } from "../../services/studentApi";
+import { saveAdminSession, saveStudentSession } from "../../utils/authSession";
 
 export default function Login({ goTo }) {
   const [authView, setAuthView] = useState("login");
@@ -32,16 +33,12 @@ export default function Login({ goTo }) {
     try {
       if (mode === "student") {
         const data = await studentLogin(form);
-        localStorage.setItem("studentToken", data.token);
-        if (data.student?.full_name) {
-          localStorage.setItem("studentName", data.student.full_name);
-        }
+        saveStudentSession(data);
         alert("Logged in successfully.");
         goTo("/student");
       } else {
         const data = await adminLogin(form);
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("adminName", data.user?.name || "Admin");
+        saveAdminSession(data);
         alert("Admin logged in.");
         goTo("/admin");
       }

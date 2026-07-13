@@ -4,6 +4,10 @@ export function getProducts() {
   return apiRequest("/products");
 }
 
+export function getProduct(id) {
+  return apiRequest(`/products/${id}`);
+}
+
 export function createProduct(payload) {
   return apiRequest("/products", {
     method: "POST",

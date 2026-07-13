@@ -77,7 +77,7 @@ export default function Jobs() {
               your CV and GitHub/LinkedIn, and we'll keep you in mind for future
               IT projects.
             </p>
-            <p className="email">Email: careers@stekoratech.com</p>
+            <p className="email">Email: info@stekoratech.com</p>
           </div>
         </div>
       </div>

@@ -46,7 +46,7 @@ export default function Footer() {
             <h3>Contact Us</h3>
             <ul>
               <li><FontAwesomeIcon icon={faPhone} /> Phone: <span>+250 799579034</span></li>
-              <li><FontAwesomeIcon icon={faEnvelope} /> Email: <span>stekoratech@gmail.com</span></li>
+              <li><FontAwesomeIcon icon={faEnvelope} /> Email: <span>info@stekoratech.com</span></li>
               <li><FontAwesomeIcon icon={faLocationDot} /> Location: <span>Musanze, Rwanda</span></li>
               <li className="social-text">Social: <span>LinkedIn, GitHub, Instagram</span></li>
             </ul>
@@ -58,7 +58,7 @@ export default function Footer() {
               <li>Help & FAQs</li>
               <li>Project Support</li>
               <li>Service Level & Maintenance</li>
-              <li>Contact Support: support@stekoratech.com</li>
+              <li>Contact Support: info@stekoratech.com</li>
             </ul>
           </div>
         </div>
@@ -69,6 +69,12 @@ export default function Footer() {
       </footer>
 
       <style>{`
+      :root{
+      --richblue:#003366;
+      --palegray:#f5f5f5;
+      --lightgray:#9ca3af;
+      --blue:#3b82f6
+      }
         .footer {
           background: #1f2d3a;
           color: #d1d5db;
@@ -129,7 +135,7 @@ export default function Footer() {
         .social span,
         .social a {
           background: white;
-          color: black;
+          color: var(--blue);
           padding: 10px;
           min-width: 46px;
           min-height: 46px;
@@ -143,7 +149,7 @@ export default function Footer() {
 
         .footer ul li svg {
           margin-right: 10px;
-          color: #f59e0b;
+          color: var(--blue);
         }
 
         .footer ul {

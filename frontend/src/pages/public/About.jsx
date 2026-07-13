@@ -1,7 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowUpRightFromSquare,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 
-import stevoPhoto from "../../assets/image/stevo.png";
 import codePhoto from "../../assets/image/code.jpeg";
 import crestlinePhoto from "../../assets/image/crestline.png";
 
@@ -10,19 +12,19 @@ const teamMembers = [
     name: "Steven",
     role: "CEO & Founder",
     bio: "Leads overall vision, projects and partnerships.",
-    photo: "",
+    icon: faUser,
   },
   {
     name: "Tabitha",
     role: "Chief Technology Officer",
     bio: "Oversees technology choices and engineering quality.",
-    photo: "",
+    icon: faUser,
   },
   {
     name: "Stekora Team",
     role: "Developers & Mentors",
     bio: "Collaborate on client work and student projects.",
-    photo: "",
+    icon: faUser,
   },
 ];
 
@@ -36,11 +38,6 @@ const partners = [
     name: "Crestline Journeys",
     logo: crestlinePhoto,
     website: "https://www.crestjourneys.com/",
-  },
-  {
-    name: "Nadev Solution",
-    icon: "👤",
-    website: "https://stekoratech.com/#/about",
   },
 ];
 
@@ -139,17 +136,13 @@ export default function About() {
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 2.2rem;
-          color: #9ca3af;
           background: #f8fafc;
           overflow: hidden;
         }
 
-        .team-avatar img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          display: block;
+        .team-avatar-icon {
+          font-size: 2rem;
+          color: var(--richblue);
         }
 
         .team-name {
@@ -201,7 +194,10 @@ export default function About() {
           box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
           text-decoration: none;
           cursor: pointer;
-          transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+          transition:
+            transform 0.25s ease,
+            box-shadow 0.25s ease,
+            border-color 0.25s ease;
         }
 
         .partner-card:hover {
@@ -219,7 +215,6 @@ export default function About() {
           justify-content: center;
           background: #e7f5f3;
           color: #0f766e;
-          font-size: 1.2rem;
           overflow: hidden;
           flex-shrink: 0;
         }
@@ -229,6 +224,11 @@ export default function About() {
           height: 100%;
           object-fit: cover;
           display: block;
+        }
+
+        .partner-fontawesome-icon {
+          font-size: 1rem;
+          color: #0f766e;
         }
 
         .partner-name {
@@ -242,7 +242,9 @@ export default function About() {
         .external-icon {
           font-size: 0.8rem;
           color: #9ca3af;
-          transition: transform 0.25s ease, color 0.25s ease;
+          transition:
+            transform 0.25s ease,
+            color 0.25s ease;
         }
 
         .partner-card:hover .partner-name,
@@ -307,7 +309,9 @@ export default function About() {
           </div>
 
           <section className="team-section">
-            <h2 className="team-title">Our Awesome Team Of Engineers &amp; Staff</h2>
+            <h2 className="team-title">
+              Our Awesome Team Of Engineers &amp; Staff
+            </h2>
 
             <p className="team-sub">
               Stekora Tech works with skilled professionals and partners to
@@ -318,11 +322,10 @@ export default function About() {
               {teamMembers.map((member) => (
                 <div className="team-card" key={member.name}>
                   <div className="team-avatar">
-                    {member.photo ? (
-                      <img src={member.photo} alt={member.name} />
-                    ) : (
-                      <span>👤</span>
-                    )}
+                    <FontAwesomeIcon
+                      icon={member.icon}
+                      className="team-avatar-icon"
+                    />
                   </div>
 
                   <div className="team-name">{member.name}</div>
@@ -349,7 +352,10 @@ export default function About() {
                       {partner.logo ? (
                         <img src={partner.logo} alt={partner.name} />
                       ) : (
-                        <span>{partner.icon}</span>
+                        <FontAwesomeIcon
+                          icon={partner.icon}
+                          className="partner-fontawesome-icon"
+                        />
                       )}
                     </div>
 

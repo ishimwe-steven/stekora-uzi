@@ -1,18 +1,48 @@
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5001/api";
+import { clearAuthSession } from "../utils/authSession";
+
+const API_URL = (import.meta.env.VITE_API_URL || "http://localhost:5000/api").replace(/\/$/, "");
 
 export async function apiRequest(path, options = {}) {
+  const requestPath = path.startsWith("/") ? path : `/${path}`;
   const isFormData = options.body instanceof FormData;
-  const response = await fetch(`${API_URL}${path}`, {
+
+  const headers = {
+    ...(isFormData ? {} : { "Content-Type": "application/json" }),
+    ...(options.headers || {}),
+  };
+
+  const response = await fetch(`${API_URL}${requestPath}`, {
     ...options,
-    headers: isFormData
-      ? { ...options.headers }
-      : { "Content-Type": "application/json", ...options.headers }
+    headers,
   });
 
+  const contentType = response.headers.get("content-type") || "";
+  const data = contentType.includes("application/json")
+    ? await response.json()
+    : await response.text();
+
   if (!response.ok) {
-    const errorBody = await response.json().catch(() => ({}));
-    throw new Error(errorBody.message || `API request failed: ${response.status}`);
+    if (response.status === 401) {
+      clearAuthSession();
+
+      const currentRoute = window.location.hash.replace("#", "") || "/";
+      const isProtectedRoute =
+        currentRoute.startsWith("/admin") || currentRoute.startsWith("/student");
+
+      if (isProtectedRoute) {
+        window.location.hash = "/login";
+      }
+    }
+
+    const message =
+      typeof data === "object" && data?.message
+        ? data.message
+        : typeof data === "string" && data
+          ? data
+          : `API request failed: ${response.status}`;
+
+    throw new Error(message);
   }
 
-  return response.json();
+  return data;
 }

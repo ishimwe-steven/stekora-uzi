@@ -226,7 +226,7 @@ export default function Contact() {
 
         .submit-btn {
           margin-top: 0.5rem;
-          background: var(--richblue);
+          background: var(--blue);
           color: #fff;
           border: none;
           padding: 0.8rem 1.5rem;
@@ -269,15 +269,15 @@ export default function Contact() {
         }
 
         .contact-status.warning {
-          border: 1px solid #facc15;
+        
           background: #fef9c3;
           color: #854d0e;
         }
 
         .badge {
           display: inline-block;
-          background: var(--yellow);
-          color: #000;
+          background: var(--blue);
+          color:white;
           font-size: 0.7rem;
           padding: 0.25rem 0.6rem;
           border-radius: 999px;
@@ -289,8 +289,8 @@ export default function Contact() {
       <div className="contact-page">
         <div className="contact-container">
           <div className="contact-header">
-            <span className="badge">Contact Us</span>
-            <h1>Request a Project / Job</h1>
+            <span className="badge">Trusted Company</span>
+            <h1>Request a Service Today</h1>
             <p>
               Need a website, mobile app, IoT system or custom IT solution?
               Fill in the form below and our team will get back to you.
