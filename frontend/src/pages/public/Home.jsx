@@ -565,7 +565,7 @@ export default function Home({ goTo, addToCart }) {
                 className="home-contact-btn"
                 onClick={() => goTo("/contact")}
               >
-                Get in Touch
+                Request a Services
               </button>
             </div>
 
