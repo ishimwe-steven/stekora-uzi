@@ -3,11 +3,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { getProduct } from "../../services/productApi";
 import { resolveImageUrl } from "../../utils/resolveImageUrl";
+import MiniCartPopup from "../../components/public/MiniCartPopup";
 
 export default function ProductDetails({ productId, addToCart, goTo }) {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [popupProduct, setPopupProduct] = useState(null);
 
   useEffect(() => {
     async function loadProduct() {
@@ -44,6 +46,8 @@ export default function ProductDetails({ productId, addToCart, goTo }) {
         @media(min-width:760px){.product-details-card{grid-template-columns:1fr 1fr}.product-details-image{height:100%;min-height:420px}}
       `}</style>
 
+      <MiniCartPopup product={popupProduct} goTo={goTo} onClose={() => setPopupProduct(null)} />
+
       <div className="product-details-page">
         <div className="product-details-container">
           <button className="product-back" onClick={() => goTo("/shop")}><FontAwesomeIcon icon={faArrowLeft} /> Back to shop</button>
@@ -61,7 +65,15 @@ export default function ProductDetails({ productId, addToCart, goTo }) {
                 {product.full_description && <><h3>Full details</h3><p className="product-details-text">{product.full_description}</p></>}
                 {product.specifications && <><h3>Specifications</h3><p className="product-details-text">{product.specifications}</p></>}
                 <div className="product-details-actions">
-                  <button className="product-add-cart" onClick={() => addToCart(product)}><FontAwesomeIcon icon={faCartShopping} /> Add to cart</button>
+                  <button
+                    className="product-add-cart"
+                    onClick={() => {
+                      addToCart(product);
+                      setPopupProduct(product);
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faCartShopping} /> Add to cart
+                  </button>
                  
                 </div>
               </div>

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { getProducts } from "../../services/productApi";
 import { resolveImageUrl } from "../../utils/resolveImageUrl";
+import MiniCartPopup from "../../components/public/MiniCartPopup";
 import bannerOne from "../../assets/banners/mukunzi.png";
 import bannerTwo from "../../assets/banners/uzii.png";
 import mobileBannerOne from "../../assets/banners/freightQ.png";
@@ -27,6 +28,7 @@ export default function Home({ goTo, addToCart }) {
   const [typedText, setTypedText] = useState("");
   const [typingIndex, setTypingIndex] = useState(0);
   const [notice, setNotice] = useState("");
+  const [popupProduct, setPopupProduct] = useState(null);
 
   const banners = isMobile ? mobileBanners : desktopBanners;
 
@@ -87,6 +89,7 @@ export default function Home({ goTo, addToCart }) {
 
   const add = (item) => {
     addToCart(item);
+    setPopupProduct(item);
     setNotice(`${item.title || "Product"} added to cart.`);
     window.setTimeout(() => setNotice(""), 2200);
   };
@@ -497,6 +500,8 @@ export default function Home({ goTo, addToCart }) {
           }
         }
       `}</style>
+
+      <MiniCartPopup product={popupProduct} goTo={goTo} onClose={() => setPopupProduct(null)} />
 
       <div className="home-page">
         <div className="ad-slider">

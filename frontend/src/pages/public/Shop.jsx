@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { getProducts } from "../../services/productApi";
 import { resolveImageUrl } from "../../utils/resolveImageUrl";
+import MiniCartPopup from "../../components/public/MiniCartPopup";
 
 export default function Shop({ goTo, addToCart }) {
   const [products, setProducts] = useState([]);
@@ -10,6 +11,7 @@ export default function Shop({ goTo, addToCart }) {
   const [error, setError] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [notice, setNotice] = useState("");
+  const [popupProduct, setPopupProduct] = useState(null);
 
   useEffect(() => {
     async function loadProducts() {
@@ -54,6 +56,7 @@ export default function Shop({ goTo, addToCart }) {
     }
 
     addToCart(product);
+    setPopupProduct(product);
 
     setNotice(`${product.title || product.name || "Product"} added to cart.`);
 
@@ -303,6 +306,8 @@ export default function Shop({ goTo, addToCart }) {
           }
         }
       `}</style>
+
+      <MiniCartPopup product={popupProduct} goTo={goTo} onClose={() => setPopupProduct(null)} />
 
       <div className="shop-page">
         <div className="shop-container">
