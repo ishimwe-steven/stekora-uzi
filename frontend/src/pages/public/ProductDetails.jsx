@@ -60,7 +60,7 @@ export default function ProductDetails({ productId, addToCart, goTo }) {
                 <span className="product-details-badge">{product.category || "Product"}</span>
                 <h1 className="product-details-title">{product.title}</h1>
                 <p className="product-details-text">{product.description}</p>
-                <div className="product-details-price">R{Number(product.price || 0).toFixed(2)}</div>
+                <div className="product-details-price">{Number(product.price || 0).toFixed(2)} RWF</div>
                 <div className="product-details-stock">Stock available</div>
                 {product.full_description && <><h3>Full details</h3><p className="product-details-text">{product.full_description}</p></>}
                 {product.specifications && <><h3>Specifications</h3><p className="product-details-text">{product.specifications}</p></>}
