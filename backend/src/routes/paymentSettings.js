@@ -27,7 +27,12 @@ router.get("/", (_req, res) => {
 
   const whatsappNumber = normalizeRwandaWhatsAppNumber(
     process.env.WHATSAPP_NUMBER
-  );
+  ); 
+  console.log("==================================");
+  console.log("MOMO:", process.env.MOMO_NUMBER);
+  console.log("WHATSAPP RAW:", process.env.WHATSAPP_NUMBER);
+  console.log("WHATSAPP NORMALIZED:", whatsappNumber);
+  console.log("==================================");
 
   if (!momoNumber || !momoAccountName || !whatsappNumber) {
     return res.status(503).json({
