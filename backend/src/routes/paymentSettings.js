@@ -45,6 +45,8 @@ router.get("/", (_req, res) => {
     momo_number: momoNumber,
     momo_account_name: momoAccountName,
     whatsapp_number: whatsappNumber,
+    whatsapp_number: "250799579034",
+    code_version: "NEW_PAYMENT_ROUTE_V2",
   });
 });
 
