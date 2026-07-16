@@ -2,14 +2,32 @@ import express from "express";
 
 const router = express.Router();
 
+function normalizeRwandaWhatsAppNumber(value) {
+  let number = String(value || "").replace(/\D/g, "");
+
+  if (number.startsWith("0") && number.length === 10) {
+    number = `250${number.slice(1)}`;
+  }
+
+  if (number.startsWith("2500")) {
+    number = `250${number.slice(4)}`;
+  }
+
+  return number;
+}
+
 router.get("/", (_req, res) => {
-  const momoNumber = String(process.env.MOMO_NUMBER || "").trim();
+  const momoNumber = String(
+    process.env.MOMO_NUMBER || ""
+  ).trim();
+
   const momoAccountName = String(
     process.env.MOMO_ACCOUNT_NAME || ""
   ).trim();
-  const whatsappNumber = String(
-    process.env.WHATSAPP_NUMBER || ""
-  ).replace(/\D/g, "");
+
+  const whatsappNumber = normalizeRwandaWhatsAppNumber(
+    process.env.WHATSAPP_NUMBER
+  );
 
   if (!momoNumber || !momoAccountName || !whatsappNumber) {
     return res.status(503).json({
